@@ -1,19 +1,19 @@
-name: C/C++ CI
+name: Build and Release
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: Install pdflatex
       run: sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra
     - name: Build pdf
@@ -22,3 +22,8 @@ jobs:
       run: make test-compiles
     - name: Run stress tests
       run: make test
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: kactl.pdf
+
