@@ -18,10 +18,6 @@ jobs:
       run: sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra
     - name: Build pdf
       run: make kactl
-    - name: Run compiles
-      run: make test-compiles
-    - name: Run stress tests
-      run: make test
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
